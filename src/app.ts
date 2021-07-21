@@ -2,6 +2,7 @@ import express from 'express';
 import config  from './config';
 import compression from 'compression';
 import helper from './routes/helper';
+import api from './routes/api';
 
 const app: express.Application = express(); 
 const port = config.port;
@@ -23,6 +24,7 @@ app.use((req,res,next) => {
 
 
 app.use('/helper', helper); 
+app.use('/api', api);
 
 
 app.use((req, res, next) => {
