@@ -1,13 +1,13 @@
 import { expect, it } from '@jest/globals';
 import * as verbService from '../src/services/verb';
+import { IVerb } from '../src/interfaces/verb';
 
 describe('verbService', () => {
 
-    it('returns verb with root ', () => {
+    it('returns verb as IVerb and checks root prop  ', () => {
       
-        const verb = verbService.conjugate('trabajar');
-        const root = verb.root; 
-        expect(root).toEqual('trabaj');    
+        const verb : IVerb = verbService.conjugate('trabajar');
+        expect(verb).toHaveProperty('root');    
 
     });
 
@@ -25,6 +25,12 @@ describe('verbService', () => {
         const sps = verb.present.secondPersonSingular; 
         expect(sps).toEqual('vuelas');    
 
+    });
+
+    it('handles a bogus word', () => {
+        const verb = 'facebook';
+        const data = verbService.conjugate(verb); 
+        expect(data).toBeNull();
     });
 
 });

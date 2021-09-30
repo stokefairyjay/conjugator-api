@@ -8,7 +8,12 @@ export const conjugate = (infinitive) : IVerb => {
     const arrRootType = getRootandType(infinitive);    
     verb.root = arrRootType[0];
     verb.type = arrRootType[1]; 
-    
+
+    const validate = validateVerb(verb.type);
+    if(!validate){
+        return null;    
+    }
+     
     verb.pattern = getPattern(infinitive); 
 
     verb.gerund = conjugateGerund(verb.root, verb.type, verb.pattern); 
@@ -21,6 +26,13 @@ export const conjugate = (infinitive) : IVerb => {
     const resp : IVerb = verb; 
     
     return resp;
+}
+
+const validateVerb = (type : string)  : boolean => {
+    if(['ar','ir','er'].includes(type)){
+        return true;
+    }
+    return false;
 }
 
 const getRootandType = (infinitive) : string[] => {
